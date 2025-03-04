@@ -30,6 +30,19 @@ public class MainActivity extends AppCompatActivity {
         Button btnNhan = findViewById(R.id.btnNhan);
         Button btnChia = findViewById(R.id.btnChia);
 
+        /* đăng kí bộ lắng nghe bth
+        btnCong.setOnClickListener(nut_cong);
+        View.OnClickListener nut_cong = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            code cụ thể ở đây
+
+            }
+        }
+         */
+
+
+
         // Đăng ký bộ lắng nghe ẩn danh
         btnCong.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,6 +80,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (strA.isEmpty() || strB.isEmpty()) {
             Toast.makeText(this, "Vui lòng nhập đầy đủ số!", Toast.LENGTH_SHORT).show();
+            //hiển thị thông báo (ngữ cảnh, nd thông báo,thời gian thông báo)
             return;
         }
 
