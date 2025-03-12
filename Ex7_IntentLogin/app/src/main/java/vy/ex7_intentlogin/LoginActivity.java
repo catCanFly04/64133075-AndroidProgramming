@@ -9,9 +9,6 @@ import android.content.Intent;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -21,6 +18,7 @@ public class LoginActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_login);
 
+        EditText edtEmail = findViewById(R.id.edtEmail);
         EditText edtUsername = findViewById(R.id.edtUsername);
         EditText edtPassword = findViewById(R.id.edtPassword);
         Button btnLogin = findViewById(R.id.btnLogin);
@@ -28,11 +26,18 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String username = edtUsername.getText().toString();
-                String password = edtPassword.getText().toString();
+                String email = edtEmail.getText().toString().trim();
+                String username = edtUsername.getText().toString().trim();
+                String password = edtPassword.getText().toString().trim();
 
-                if (username.equals("admin") && password.equals("123456")) {
+                if (email.isEmpty() || username.isEmpty() || password.isEmpty()) {
+                    Toast.makeText(LoginActivity.this, "Vui lòng nhập đầy đủ thông tin!", Toast.LENGTH_SHORT).show();
+                } else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                    Toast.makeText(LoginActivity.this, "Email không hợp lệ!", Toast.LENGTH_SHORT).show();
+                } else if (username.equals("admin") && password.equals("123456")) {
                     Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                    intent.putExtra("email", email);
+                    intent.putExtra("username", username);
                     startActivity(intent);
                 } else {
                     Toast.makeText(LoginActivity.this, "Sai tài khoản hoặc mật khẩu!", Toast.LENGTH_SHORT).show();
