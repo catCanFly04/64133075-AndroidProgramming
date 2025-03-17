@@ -114,7 +114,6 @@
                         android:text="Electronics"
                         android:textSize="20sp"
                         android:textColor="@color/lavender"
-                        android:fontFamily="@font/poppins_semibold"
                         android:layout_marginTop="10dp"
                         android:layout_centerHorizontal="true"
                         android:layout_below="@+id/elecImage"/>

@@ -38,24 +38,24 @@
                 android:textColor="@color/pink"/>
 
             <EditText
+                android:id="@+id/username"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:id="@+id/username"
+                android:layout_marginTop="40dp"
                 android:background="@drawable/custom_edittext"
-                android:drawableLeft="@drawable/icon_person"
+                android:drawableStart="@drawable/icon_person"
                 android:drawablePadding="8dp"
                 android:hint="Username"
                 android:padding="8dp"
                 android:textColor="@color/black"
-                android:textColorHighlight="@color/cardview_dark_background"
-                android:layout_marginTop="40dp"/>
+                android:textColorHighlight="@color/cardview_dark_background" />
 
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:id="@+id/password"
                 android:background="@drawable/custom_edittext"
-                android:drawableLeft="@drawable/icon_person"
+                android:drawableStart="@drawable/icon_password"
                 android:drawablePadding="8dp"
                 android:hint="Password"
                 android:padding="8dp"
