@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
         if (userAnswer == correctAnswer) {
             Toast.makeText(this, "Đúng rồi!", Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(this, "Sai rồi! Kết quả đúng là " + correctAnswer, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Sai rồi! Hãy nhập lại kết quả" , Toast.LENGTH_SHORT).show();
         }
     }
 }
