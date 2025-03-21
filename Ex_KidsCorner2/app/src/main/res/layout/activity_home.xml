@@ -44,7 +44,7 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
-        android:layout_width="170dp"
+        android:layout_width="175dp"
         android:layout_height="180dp"
         android:layout_marginStart="20dp"
         app:cardCornerRadius="16dp"
@@ -72,13 +72,32 @@
             android:layout_marginTop="16dp"
             android:layout_marginLeft="10dp"/>
 
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="88dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="60dp"
+            android:fontFamily="@font/saira_medium"
+            android:textSize="14sp"
+            android:text="40 topics" />
+
+        <ImageView
+            android:id="@+id/imageView8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="8dp"
+            android:src="@drawable/icon_maytinh" />
+
+
     </androidx.cardview.widget.CardView>
 
 
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView2"
-        android:layout_width="170dp"
+        android:layout_width="175dp"
         android:layout_height="180dp"
         android:layout_marginEnd="20dp"
         app:cardCornerRadius="16dp"
@@ -96,11 +115,38 @@
             android:scaleType="fitXY"
             android:src="@drawable/custom_cardview" />
 
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="63dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/saira_bold"
+            android:text="SCIENSE"
+            android:textSize="27sp" />
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="88dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="60dp"
+            android:fontFamily="@font/saira_medium"
+            android:textSize="14sp"
+            android:text="45 topics" />
+        <ImageView
+            android:id="@+id/imageView9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="8dp"
+            android:src="@drawable/icon_sciense" />
+
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView3"
-        android:layout_width="170dp"
+        android:layout_width="175dp"
         android:layout_height="180dp"
         android:layout_marginStart="20dp"
         app:cardCornerRadius="16dp"
@@ -108,7 +154,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.75">
+        app:layout_constraintVertical_bias="0.72">
 
         <!-- ImageView làm nền -->
         <ImageView
@@ -117,12 +163,39 @@
             android:background="@color/mint"
             android:scaleType="fitXY"
             android:src="@drawable/custom_cardview" />
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="63dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/saira_bold"
+            android:text="Music"
+            android:textSize="27sp" />
+
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="88dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="60dp"
+            android:fontFamily="@font/saira_medium"
+            android:textSize="14sp"
+            android:text="30 videos" />
+
+        <ImageView
+            android:id="@+id/imageView10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="8dp"
+            android:src="@drawable/icon_music" />
 
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView4"
-        android:layout_width="170dp"
+        android:layout_width="175dp"
         android:layout_height="180dp"
         android:layout_marginEnd="20dp"
         app:cardCornerRadius="16dp"
@@ -130,7 +203,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.75">
+        app:layout_constraintVertical_bias="0.72">
 
         <!-- ImageView làm nền -->
         <ImageView
@@ -140,8 +213,34 @@
             android:scaleType="fitXY"
             android:src="@drawable/custom_cardview" />
 
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="wrap_content"
+            android:layout_height="63dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/saira_bold"
+            android:text="Painting"
+            android:textSize="27sp" />
+
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="88dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="60dp"
+            android:fontFamily="@font/saira_medium"
+            android:textSize="14sp"
+            android:text="20 videos" />
+
+        <ImageView
+            android:id="@+id/imageView11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="8dp"
+            android:src="@drawable/icon_painting" />
+
     </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
-
-
