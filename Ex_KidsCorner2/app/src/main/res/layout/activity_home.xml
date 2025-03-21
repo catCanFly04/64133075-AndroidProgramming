@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".HomeActivity">
+
+
+    <!-- CardView -->
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="217dp"
+        android:layout_height="54dp"
+        android:layout_marginStart="176dp"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="177dp"
+        android:fontFamily="@font/saira"
+        android:text="Hi, Good Morning"
+        android:textSize="27sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.924"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/editTextText"
+        android:layout_width="352dp"
+        android:layout_height="57dp"
+        android:layout_marginStart="86dp"
+        android:layout_marginEnd="116dp"
+        android:layout_marginBottom="568dp"
+        android:background="@drawable/customplantext"
+        android:drawableEnd="@drawable/icon_search"
+        android:drawablePadding="12dp"
+        android:ems="10"
+        android:inputType="text"
+        android:paddingEnd="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.398"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="170dp"
+        android:layout_height="180dp"
+        android:layout_marginStart="20dp"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.36">
+
+        <!-- ImageView làm nền -->
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#7AF55454"
+            android:scaleType="fitXY"
+            android:src="@drawable/custom_cardview" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="85dp"
+            android:layout_height="63dp"
+            android:fontFamily="@font/saira_bold"
+            android:text="Maths"
+            android:textSize="27sp"
+            android:layout_marginTop="16dp"
+            android:layout_marginLeft="10dp"/>
+
+    </androidx.cardview.widget.CardView>
+
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView2"
+        android:layout_width="170dp"
+        android:layout_height="180dp"
+        android:layout_marginEnd="20dp"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.36">
+
+        <!-- ImageView làm nền -->
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/purple"
+            android:scaleType="fitXY"
+            android:src="@drawable/custom_cardview" />
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView3"
+        android:layout_width="170dp"
+        android:layout_height="180dp"
+        android:layout_marginStart="20dp"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.75">
+
+        <!-- ImageView làm nền -->
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/mint"
+            android:scaleType="fitXY"
+            android:src="@drawable/custom_cardview" />
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView4"
+        android:layout_width="170dp"
+        android:layout_height="180dp"
+        android:layout_marginEnd="20dp"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.75">
+
+        <!-- ImageView làm nền -->
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/yellow"
+            android:scaleType="fitXY"
+            android:src="@drawable/custom_cardview" />
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
