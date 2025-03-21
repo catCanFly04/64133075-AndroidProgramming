@@ -4,6 +4,9 @@ Lưu các bài thực hành, bài tập, dự án Android
 ## Hình ảnh các bài tập
 ### Giao diện Kids Corner
 <img width="200" alt="LandingPage" src="https://github.com/user-attachments/assets/6538839c-cdc0-4195-bd88-554fb69ac153" />
+![HomePage](https://github.com/user-attachments/assets/637a79f2-75cd-4468-86d0-d54b26127dc1)
+
+
 
 
 ### Giao diện ứng dụng Kiểm tra phép toán cộng
