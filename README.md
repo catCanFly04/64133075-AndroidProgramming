@@ -3,8 +3,7 @@ Lưu các bài thực hành, bài tập, dự án Android
 
 ## Hình ảnh các bài tập
 ### Giao diện Kids Corner
-<img alt="LandingPage" width="200" src="https://github.com/user-attachments/assets/924b84bd-8e09-42b9-8166aeac3eafc6e7">
-
+<img src="https://github.com/user-attachments/assets/bffebc3f-3072-4d7c-aa78-e6495e16c3ae" alt="LandingPage" width="200">
 <img alt="HomePage" width="200" src="https://github.com/user-attachments/assets/3fb2e4db-33a7-4709-a5b9-edbf50413145" >
 
 
