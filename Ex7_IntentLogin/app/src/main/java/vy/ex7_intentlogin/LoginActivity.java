@@ -29,13 +29,9 @@ public class LoginActivity extends AppCompatActivity {
                 String email = edtEmail.getText().toString().trim();
                 String username = edtUsername.getText().toString().trim();
                 String password = edtPassword.getText().toString().trim();
-
-                if (email.isEmpty() || username.isEmpty() || password.isEmpty()) {
-                    Toast.makeText(LoginActivity.this, "Vui lòng nhập đầy đủ thông tin!", Toast.LENGTH_SHORT).show();
-                } else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-                    Toast.makeText(LoginActivity.this, "Email không hợp lệ!", Toast.LENGTH_SHORT).show();
-                } else if (username.equals("admin") && password.equals("123456")) {
+                if (username.equals("admin") && password.equals("1")) {
                     Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                    email ="vykhungkkk@gmsil.vom";
                     intent.putExtra("email", email);
                     intent.putExtra("username", username);
                     startActivity(intent);
