@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -38,6 +39,10 @@ public class Cau2Activity extends AppCompatActivity {
         );
 
         listViewMonHoc.setAdapter(adapter);
+        listViewMonHoc.setOnItemClickListener((parent, view, position, id) -> {
+            String monHoc = danhSachMon[position];
+            Toast.makeText(Cau2Activity.this, "Bạn chọn: " + monHoc, Toast.LENGTH_SHORT).show();
+        });
     }
 
 }
