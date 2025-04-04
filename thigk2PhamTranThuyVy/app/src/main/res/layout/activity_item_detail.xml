@@ -1,0 +1,35 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Chứa ảnh và tiêu đề -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <!-- Ảnh -->
+        <ImageView
+            android:id="@+id/imageViewItem"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginEnd="16dp"
+            android:contentDescription="@string/item_image"/>
+
+        <!-- Tiêu đề -->
+        <TextView
+            android:id="@+id/textViewItemName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Item Name"
+            android:textSize="18sp"/>
+
+    </LinearLayout>
+
+    <!-- Mô tả -->
+
+</LinearLayout>
