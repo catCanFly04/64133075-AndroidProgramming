@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "201194762466",
+    "project_id": "englishstory-123bc",
+    "storage_bucket": "englishstory-123bc.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:201194762466:android:9388f787898149bf56aebb",
+        "android_client_info": {
+          "package_name": "vn.phamtranthuyvy.kids_english_story"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB56VY4YD79jGj2Hyz0Ro8jJr_sjC2DaIk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
