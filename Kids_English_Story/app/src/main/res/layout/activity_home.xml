@@ -38,13 +38,14 @@
         android:id="@+id/textViewChooseThemeLabel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Chọn chủ đề học nào bé ơi:"
-        android:textSize="18sp"
-        android:textStyle="italic"
-        android:textColor="#DD6B20"
+        android:fontFamily="@font/agbalumo"
         android:gravity="center_horizontal"
         android:paddingTop="20dp"
-        android:paddingBottom="12dp"/>
+        android:paddingBottom="12dp"
+        android:text="Chọn chủ đề học nào bé ơi:"
+        android:textColor="@color/pink"
+        android:textSize="20sp"
+        android:textStyle="bold|italic" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -71,24 +72,26 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:padding="16dp"
+                    android:background="@android:color/white"
                     android:gravity="center_vertical"
-                    android:background="@android:color/white">
+                    android:orientation="horizontal"
+                    android:padding="16dp">
 
                     <ImageView
                         android:id="@+id/imageViewFamilyIcon"
                         android:layout_width="60dp"
                         android:layout_height="60dp"
-                        android:src="@drawable/sun_774546" /> <TextView
-                    android:id="@+id/textViewFamilyTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Gia Đình Yêu Thương"
-                    android:textSize="18sp"
-                    android:textColor="#2D3748"
-                    android:textStyle="bold"
-                    android:layout_marginStart="16dp"/>
+                        android:src="@drawable/family_547500" />
+
+                    <TextView
+                        android:id="@+id/textViewFamilyTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:text="Gia Đình Yêu Thương"
+                        android:textColor="#2D3748"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
@@ -113,7 +116,7 @@
                         android:id="@+id/imageViewBodyIcon"
                         android:layout_width="60dp"
                         android:layout_height="60dp"
-                        android:src="@drawable/sun_774546" /> <TextView
+                        android:src="@drawable/abs_12620363" /> <TextView
                     android:id="@+id/textViewBodyTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -144,7 +147,7 @@
                         android:id="@+id/imageViewHomeIcon"
                         android:layout_width="60dp"
                         android:layout_height="60dp"
-                        android:src="@drawable/sun_774546" />
+                        android:src="@drawable/home_738873" />
                     <TextView
                         android:id="@+id/textViewHomeTitle"
                         android:layout_width="wrap_content"
@@ -176,7 +179,7 @@
                         android:id="@+id/imageViewToysIcon"
                         android:layout_width="60dp"
                         android:layout_height="60dp"
-                        android:src="@drawable/sun_774546" />
+                        android:src="@drawable/storagebox_4287470" />
                     <TextView
                         android:id="@+id/textViewToysTitle"
                         android:layout_width="wrap_content"
@@ -208,7 +211,7 @@
                         android:id="@+id/imageViewClothesIcon"
                         android:layout_width="60dp"
                         android:layout_height="60dp"
-                        android:src="@drawable/sun_774546" />
+                        android:src="@drawable/pijama_1580488" />
                     <TextView
                         android:id="@+id/textViewClothesTitle"
                         android:layout_width="wrap_content"
@@ -240,7 +243,7 @@
                         android:id="@+id/imageViewFoodIcon"
                         android:layout_width="60dp"
                         android:layout_height="60dp"
-                        android:src="@drawable/sun_774546" />
+                        android:src="@drawable/fastfood_737967" />
                     <TextView
                         android:id="@+id/textViewFoodTitle"
                         android:layout_width="wrap_content"
@@ -284,6 +287,7 @@
                         android:layout_marginStart="16dp"/>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
+
 
         </LinearLayout>
     </ScrollView>
