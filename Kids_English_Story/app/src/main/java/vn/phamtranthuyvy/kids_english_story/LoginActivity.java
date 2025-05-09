@@ -46,9 +46,9 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Tạm thời hiển thị Toast, sau này sẽ chuyển sang RegisterActivity
-                Toast.makeText(LoginActivity.this, "Chức năng Đăng ký sẽ được thêm sau!", Toast.LENGTH_SHORT).show();
-                // Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
-                // startActivity(intent);
+                //Toast.makeText(LoginActivity.this, "Chức năng Đăng ký sẽ được thêm sau!", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+                startActivity(intent);
             }
         });
     }
