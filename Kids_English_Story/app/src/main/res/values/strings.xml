@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Kids_English_Story</string>
+<string-array name="age_group_options_display">
+    <item>Tất cả độ tuổi</item>
+    <item>3-5 tuổi</item>
+    <item>6-8 tuổi</item>
+</string-array>
 </resources>

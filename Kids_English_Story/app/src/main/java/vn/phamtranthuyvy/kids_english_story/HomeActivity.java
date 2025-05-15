@@ -2,7 +2,12 @@ package vn.phamtranthuyvy.kids_english_story; // Đảm bảo đây là package 
 
 import android.content.Intent;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.widget.AdapterView; // Import AdapterView
+import android.widget.ArrayAdapter; // Import ArrayAdapter
+import android.widget.Spinner;
 import android.view.View;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -15,6 +20,15 @@ public class HomeActivity extends AppCompatActivity {
     private ActivityHomeBinding binding;
     // Khai báo đối tượng Firebase Auth
     private FirebaseAuth mAuth;
+    private String currentSelectedAgeGroup = null; // Biến lưu trữ giá trị tuổi thực tế (ví dụ: "ALL", "3-5")
+
+    // Constants cho SharedPreferences và giá trị độ tuổi
+    private static final String PREFS_NAME = "KidsStoryUserPrefs";
+    private static final String KEY_SELECTED_AGE_GROUP = "selectedAgeGroup";
+    public static final String AGE_GROUP_ALL = "ALL"; // Giá trị cho "Tất cả độ tuổi"
+    public static final String AGE_GROUP_3_5 = "3-5";
+    public static final String AGE_GROUP_6_8 = "6-8";
+    private String[] ageGroupValues;
 
     // Định nghĩa các mã định danh cho chủ đề (Theme IDs)
     // Giúp quản lý và truyền dữ liệu một cách nhất quán
@@ -44,6 +58,15 @@ public class HomeActivity extends AppCompatActivity {
                 logoutUser(); // Gọi hàm đăng xuất
             }
         });
+
+        // Khởi tạo mảng giá trị cho Spinner
+        // Thứ tự phải khớp với mảng age_group_options_display trong strings.xml
+        ageGroupValues = new String[]{AGE_GROUP_ALL, AGE_GROUP_3_5, AGE_GROUP_6_8};
+
+        // Thiết lập Spinner
+        setupAgeSpinner();
+        loadAgePreferenceAndSetSpinner();
+
 
         // Gán sự kiện click cho các CardView chủ đề
 
@@ -95,6 +118,64 @@ public class HomeActivity extends AppCompatActivity {
                 openStoryList(THEME_ID_DAILY_ROUTINES);
             }
         });
+    }
+
+    private void setupAgeSpinner() {
+        // Lấy mảng các lựa chọn hiển thị từ strings.xml
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.age_group_options_display, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        binding.spinnerAgeSelection.setAdapter(adapter); // spinnerAgeSelection là ID của Spinner trong XML
+
+        binding.spinnerAgeSelection.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                // Lấy giá trị logic tương ứng với lựa chọn hiển thị
+                currentSelectedAgeGroup = ageGroupValues[position];
+                saveAgePreference(currentSelectedAgeGroup);
+                // Không cần update UI nút bấm nữa, Spinner tự hiển thị lựa chọn
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // Có thể không cần xử lý gì ở đây
+            }
+        });
+    }
+
+    private void saveAgePreference(String ageGroup) {
+        SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString(KEY_SELECTED_AGE_GROUP, ageGroup);
+        editor.apply();
+    }
+
+    private void loadAgePreferenceAndSetSpinner() {
+        SharedPreferences prefs = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        String savedAgeGroup = prefs.getString(KEY_SELECTED_AGE_GROUP, AGE_GROUP_ALL); // Mặc định là "ALL"
+        currentSelectedAgeGroup = savedAgeGroup;
+
+        // Tìm vị trí của savedAgeGroup trong mảng ageGroupValues để set selection cho Spinner
+        int spinnerPosition = 0;
+        for (int i = 0; i < ageGroupValues.length; i++) {
+            if (ageGroupValues[i].equals(savedAgeGroup)) {
+                spinnerPosition = i;
+                break;
+            }
+        }
+        binding.spinnerAgeSelection.setSelection(spinnerPosition);
+    }
+
+    private void openStoryListWithAge(String themeId) {
+        Intent intent = new Intent(HomeActivity.this, StoryListActivity.class);
+        intent.putExtra("SELECTED_THEME_ID", themeId);
+        // currentSelectedAgeGroup đã được cập nhật bởi Spinner listener hoặc khi load preference
+        if (currentSelectedAgeGroup != null && !currentSelectedAgeGroup.equals(AGE_GROUP_ALL)) {
+            intent.putExtra("SELECTED_AGE_GROUP", currentSelectedAgeGroup);
+        }
+        // Nếu currentSelectedAgeGroup là AGE_GROUP_ALL hoặc null (ít khả năng nếu có default),
+        // thì không gửi SELECTED_AGE_GROUP, StoryListActivity sẽ hiểu là lấy tất cả.
+        startActivity(intent);
     }
 
     /**
