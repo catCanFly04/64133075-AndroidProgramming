@@ -5,24 +5,25 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#FFF7F0"  tools:context=".HomeActivity">
+    android:background="#FFF7F0"
+    tools:context=".HomeActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingHorizontal="16dp"
         android:paddingVertical="12dp"
-        android:background="@color/pink"> <TextView
-        android:id="@+id/textViewAppTitleHome"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Kids English Story"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:textColor="@android:color/white"
-        android:layout_centerVertical="true"
-        android:layout_alignParentStart="true"/>
-
+        android:background="@color/pink">
+        <TextView
+            android:id="@+id/textViewAppTitleHome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Kids English Story"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/white"
+            android:layout_centerVertical="true"
+            android:layout_alignParentStart="true"/>
         <Button
             android:id="@+id/btn_logout"
             android:layout_width="wrap_content"
@@ -33,8 +34,10 @@
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"/>
     </RelativeLayout>
+
     <LinearLayout
-        android:id="@+id/layoutAgeSelectionContainer" android:layout_width="match_parent"
+        android:id="@+id/layoutAgeSelectionContainer"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_vertical"
@@ -42,14 +45,12 @@
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
         android:paddingBottom="8dp">
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Chọn độ tuổi:"
             android:textSize="16sp"
             android:layout_marginEnd="8dp"/>
-
         <Spinner
             android:id="@+id/spinnerAgeSelection"
             android:layout_width="0dp"
@@ -91,7 +92,6 @@
                 android:layout_marginBottom="8dp"
                 app:cardCornerRadius="16dp"
                 app:cardElevation="4dp">
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -99,13 +99,11 @@
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:padding="16dp">
-
                     <ImageView
                         android:id="@+id/imageViewFamilyIcon"
                         android:layout_width="60dp"
                         android:layout_height="60dp"
                         android:src="@drawable/family_547500" />
-
                     <TextView
                         android:id="@+id/textViewFamilyTitle"
                         android:layout_width="wrap_content"
@@ -119,6 +117,36 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/cardViewAnimals"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="4dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/white"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="16dp">
+                    <ImageView
+                        android:id="@+id/imageViewAnimalsIcon"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:src="@drawable/koala_3069172" /> <TextView
+                    android:id="@+id/textViewAnimalsTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="Thế Giới Động Vật"
+                    android:textColor="#2D3748"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+            <androidx.cardview.widget.CardView
                 android:id="@+id/cardViewBody"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -126,7 +154,6 @@
                 android:layout_marginBottom="8dp"
                 app:cardCornerRadius="16dp"
                 app:cardElevation="4dp">
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -134,20 +161,20 @@
                     android:padding="16dp"
                     android:gravity="center_vertical"
                     android:background="@android:color/white">
-
                     <ImageView
                         android:id="@+id/imageViewBodyIcon"
                         android:layout_width="60dp"
                         android:layout_height="60dp"
-                        android:src="@drawable/abs_12620363" /> <TextView
-                    android:id="@+id/textViewBodyTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Cơ Thể Diệu Kỳ Của Bé"
-                    android:textSize="18sp"
-                    android:textColor="#2D3748"
-                    android:textStyle="bold"
-                    android:layout_marginStart="16dp"/>
+                        android:src="@drawable/abs_12620363" />
+                    <TextView
+                        android:id="@+id/textViewBodyTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Cơ Thể Diệu Kỳ Của Bé"
+                        android:textSize="18sp"
+                        android:textColor="#2D3748"
+                        android:textStyle="bold"
+                        android:layout_marginStart="16dp"/>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
@@ -310,7 +337,6 @@
                         android:layout_marginStart="16dp"/>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
-
 
         </LinearLayout>
     </ScrollView>

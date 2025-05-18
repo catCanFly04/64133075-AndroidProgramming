@@ -33,6 +33,7 @@ public class HomeActivity extends AppCompatActivity {
     // Định nghĩa các mã định danh cho chủ đề (Theme IDs)
     // Giúp quản lý và truyền dữ liệu một cách nhất quán
     private static final String THEME_ID_FAMILY = "FAMILY";
+    private static final String THEME_ID_ANIMALS = "ANIMALS";
     private static final String THEME_ID_BODY = "BODY";
     private static final String THEME_ID_HOME = "HOME";
     private static final String THEME_ID_TOYS = "TOYS";
@@ -76,6 +77,14 @@ public class HomeActivity extends AppCompatActivity {
                 openStoryList(THEME_ID_FAMILY);
             }
         });
+
+        binding.cardViewAnimals.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openStoryList(THEME_ID_ANIMALS);
+            }
+        });
+
 
         binding.cardViewBody.setOnClickListener(new View.OnClickListener() {
             @Override

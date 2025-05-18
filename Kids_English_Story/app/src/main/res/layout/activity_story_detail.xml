@@ -1,10 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".StoryDetailActivity">
+    android:orientation="vertical"
+    android:background="#FFFFFF"
+    tools:context=".StoryDetailActivity"> <androidx.appcompat.widget.Toolbar
+    android:id="@+id/toolbarStoryDetail"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    android:background="@color/pink"
+    app:titleTextColor="@android:color/white"
+    app:navigationIcon="@drawable/ic_arrow_back" /> <ImageView
+    android:id="@+id/imageViewStoryDetailCover"
+    android:layout_width="match_parent"
+    android:layout_height="200dp"
+    android:scaleType="centerCrop"
+    android:visibility="gone" /> <TextView
+    android:id="@+id/textViewStoryDetailTitle"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp"
+    android:textSize="22sp"
+    android:textStyle="bold"
+    android:textColor="@color/pink"
+    android:gravity="center_horizontal"
+    tools:text="Tên Truyện Rất Hay" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:paddingVertical="8dp">
+
+        <Button
+            android:id="@+id/buttonSwitchToEnglish"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tiếng Anh"
+            android:layout_marginEnd="8dp"/>
+        <Button
+            android:id="@+id/buttonSwitchToVietnamese"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tiếng Việt"
+            android:layout_marginStart="8dp"/>
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/textViewStoryDetailContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:lineSpacingExtra="6dp"
+            android:textColor="#333333"
+            tools:text="Ngày xửa ngày xưa, ở một vương quốc nọ có một nàng công chúa vô cùng xinh đẹp. Nàng thích đọc sách và khám phá thế giới xung quanh. Một hôm, khi đang dạo chơi trong rừng, công chúa đã gặp một chú kỳ lân trắng muốt..." />
+    </ScrollView>
+
+</LinearLayout>
