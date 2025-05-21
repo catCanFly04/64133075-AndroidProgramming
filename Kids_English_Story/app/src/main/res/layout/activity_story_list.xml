@@ -5,22 +5,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#FFF7F0" tools:context=".StoryListActivity"> <RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="?attr/actionBarSize"
-    android:background="?attr/colorPrimaryVariant"
-    android:paddingHorizontal="16dp">
+    android:background="#FFF7F0" tools:context=".StoryListActivity">
 
-    <TextView
-        android:id="@+id/textViewStoryListTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Truyện Theo Chủ Đề"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:textColor="@android:color/white"
-        android:layout_centerInParent="true"/>
-</RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="81dp"
+        android:background="@color/cam_nhat"
+        android:paddingHorizontal="16dp">
+
+        <TextView
+            android:id="@+id/textViewStoryListTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="Truyện Theo Chủ Đề"
+            android:textColor="@color/cam"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+    </RelativeLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewStories"
@@ -28,5 +30,6 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:padding="8dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:spanCount="2"/>
 </LinearLayout>

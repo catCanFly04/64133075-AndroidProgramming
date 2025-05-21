@@ -2,7 +2,8 @@ package vn.phamtranthuyvy.kids_english_story;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
+// import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.GridLayoutManager; // << THÊM IMPORT NÀY
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
@@ -28,7 +29,7 @@ public class StoryListActivity extends AppCompatActivity {
 
     private FirebaseFirestore db;
     private List<Story> storyList;
-    private StoryAdapter storyAdapter; // Khai báo StoryAdapter
+    private StoryAdapter storyAdapter;
 
     private String currentThemeId;
     private String currentAgeGroup;
@@ -41,7 +42,6 @@ public class StoryListActivity extends AppCompatActivity {
         textViewTitle = findViewById(R.id.textViewStoryListTitle);
         recyclerViewStories = findViewById(R.id.recyclerViewStories);
 
-        // Nhận Intent và cập nhật tiêu đề (code như cũ)
         Intent intent = getIntent();
         if (intent != null) {
             currentThemeId = intent.getStringExtra("SELECTED_THEME_ID");
@@ -65,14 +65,11 @@ public class StoryListActivity extends AppCompatActivity {
             textViewTitle.setText("Danh sách truyện");
         }
 
-        // Khởi tạo Firestore và danh sách truyện
         db = FirebaseFirestore.getInstance();
         storyList = new ArrayList<>();
 
-        // Thiết lập RecyclerView và Adapter
-        setupRecyclerView(); // Gọi hàm thiết lập
+        setupRecyclerView();
 
-        // Tải truyện từ Firestore
         if (currentThemeId != null) {
             loadStoriesFromFirestore();
         } else {
@@ -82,15 +79,17 @@ public class StoryListActivity extends AppCompatActivity {
     }
 
     private void setupRecyclerView() {
-        recyclerViewStories.setLayoutManager(new LinearLayoutManager(this));
-        // Khởi tạo StoryAdapter với context và danh sách truyện (ban đầu rỗng)
+        // Sử dụng GridLayoutManager với 2 cột
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2); // Số 2 là số cột
+        recyclerViewStories.setLayoutManager(gridLayoutManager);
+
         storyAdapter = new StoryAdapter(this, storyList);
-        // Gán adapter cho RecyclerView
         recyclerViewStories.setAdapter(storyAdapter);
-        Log.d("StoryListActivity", "RecyclerView and StoryAdapter setup complete.");
+        Log.d("StoryListActivity", "RecyclerView and StoryAdapter setup complete with GridLayoutManager.");
     }
 
     private void loadStoriesFromFirestore() {
+        // ... (code hàm loadStoriesFromFirestore của bạn giữ nguyên) ...
         if (currentThemeId == null) {
             Log.e("StoryListActivity", "Theme ID is null in loadStoriesFromFirestore. Cannot query.");
             Toast.makeText(this, "Lỗi: Không có thông tin chủ đề để tải truyện.", Toast.LENGTH_SHORT).show();
@@ -111,23 +110,20 @@ public class StoryListActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
-                    // Không clear storyList ở đây nữa, vì hàm updateData của adapter sẽ làm điều đó
-                    // storyList.clear();
-                    List<Story> fetchedStories = new ArrayList<>(); // Tạo danh sách tạm để chứa truyện mới
+                    List<Story> fetchedStories = new ArrayList<>();
                     if (task.getResult() != null && !task.getResult().isEmpty()) {
                         for (QueryDocumentSnapshot document : task.getResult()) {
                             Story story = document.toObject(Story.class);
                             story.setStoryId(document.getId());
-                            fetchedStories.add(story); // Thêm vào danh sách tạm
+                            fetchedStories.add(story);
                             Log.d("StoryListActivity", "Fetched story: " + story.getTitle_en() + " (ID: " + story.getStoryId() + ")");
                         }
                     } else {
                         Log.d("StoryListActivity", "No stories found for this criteria.");
                     }
 
-                    // Sử dụng hàm updateData của adapter để cập nhật danh sách và giao diện
                     if (storyAdapter != null) {
-                        storyAdapter.updateData(fetchedStories); // Truyền danh sách truyện mới lấy được
+                        storyAdapter.updateData(fetchedStories);
                     } else {
                         Log.e("StoryListActivity", "StoryAdapter is null, cannot update data.");
                     }
@@ -146,6 +142,7 @@ public class StoryListActivity extends AppCompatActivity {
     }
 
     private String formatThemeIdForDisplay(String themeId) {
+        // ... (code hàm formatThemeIdForDisplay của bạn giữ nguyên) ...
         if (themeId == null) return "Không rõ";
         switch (themeId) {
             case "FAMILY": return "Gia Đình";

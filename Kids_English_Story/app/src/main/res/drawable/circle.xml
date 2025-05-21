@@ -1,0 +1,35 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24.0"
+    android:viewportHeight="24.0">
+
+    <!--
+        Để vẽ hình tròn, mình dùng thẻ <path>.
+        Trong pathData:
+        - M 12,2: Di chuyển đến điểm bắt đầu (x=12, y=2) - đây là điểm trên cùng của hình tròn.
+        - a 10,10 0 1,1 0,20: Vẽ một cung tròn (arc).
+            - 10,10: Bán kính theo trục x và trục y (vì là hình tròn nên bằng nhau).
+            - 0: Góc xoay của hình elip (không cần cho hình tròn).
+            - 1,1: largeArcFlag và sweepFlag.
+                - largeArcFlag=1: Vẽ cung lớn hơn (nửa hình tròn lớn).
+                - sweepFlag=1: Vẽ theo chiều kim đồng hồ.
+            - 0,20: Tọa độ điểm kết thúc của cung này so với điểm bắt đầu (tức là di chuyển 0 theo x, 20 theo y từ điểm (12,2) -> đến (12,22) - điểm dưới cùng của hình tròn).
+        - a 10,10 0 1,1 0,-20: Vẽ tiếp nửa hình tròn còn lại để khép kín.
+            - 0,-20: Di chuyển 0 theo x, -20 theo y từ điểm (12,22) -> quay lại (12,2).
+    -->
+    <path
+        android:fillColor="#F48172" android:pathData="M12,2
+                        a10,10 0 1,1 0,20
+                        a10,10 0 1,1 0,-20" />
+
+    <!--
+        Nếu bạn muốn một hình tròn có viền (stroke) và không tô màu (fill):
+        <path
+            android:strokeColor="#0000FF" // Màu của đường viền, ví dụ màu xanh dương
+            android:strokeWidth="2"       // Độ dày của đường viền
+            android:pathData="M12,2
+                            a10,10 0 1,1 0,20
+                            a10,10 0 1,1 0,-20" />
+    -->
+</vector>

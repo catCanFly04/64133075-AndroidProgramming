@@ -46,6 +46,7 @@ dependencies {
     implementation(libs.credentials)
     implementation(libs.credentials.play.services.auth)
     implementation(libs.googleid)
+    implementation(libs.firebase.storage)
 
     // 1. Glide (Để tải và hiển thị hình ảnh hiệu quả)
     val glideVersion = "4.16.0" // Kiểm tra phiên bản Glide mới nhất
