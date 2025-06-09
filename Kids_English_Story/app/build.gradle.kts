@@ -5,12 +5,12 @@ plugins {
 
 android {
     namespace = "vn.phamtranthuyvy.kids_english_story"
-    compileSdk = 35 // Bạn có thể cân nhắc hạ xuống 34 nếu gặp vấn đề tương thích với các thư viện khác, 35 là khá mới
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "vn.phamtranthuyvy.kids_english_story"
         minSdk = 24
-        targetSdk = 35 // Tương tự compileSdk
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 

@@ -19,7 +19,7 @@
             - 0,-20: Di chuyển 0 theo x, -20 theo y từ điểm (12,22) -> quay lại (12,2).
     -->
     <path
-        android:fillColor="#F48172" android:pathData="M12,2
+        android:fillColor="#FBB952" android:pathData="M12,2
                         a10,10 0 1,1 0,20
                         a10,10 0 1,1 0,-20" />
 

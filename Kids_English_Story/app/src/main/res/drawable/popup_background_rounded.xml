@@ -6,4 +6,4 @@
     android:top="5dp"
     android:right="10dp"
     android:bottom="5dp"/>
-    <stroke android:width="2dp" android:color="@color/pink"/> </shape>
+    <stroke android:width="2dp" android:color="@color/cam"/> </shape>

@@ -1,14 +1,20 @@
 package vn.phamtranthuyvy.kids_english_story;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.widget.NestedScrollView;
 
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.media.AudioManager;
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
+import android.speech.tts.UtteranceProgressListener;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextPaint;
@@ -27,6 +33,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.CustomTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
@@ -39,13 +47,15 @@ import com.google.mlkit.nl.translate.Translation;
 import com.google.mlkit.nl.translate.Translator;
 import com.google.mlkit.nl.translate.TranslatorOptions;
 
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import vn.phamtranthuyvy.kids_english_story.databinding.ActivityStoryDetailBinding;
 
-public class StoryDetailActivity extends AppCompatActivity {
+public class StoryDetailActivity extends AppCompatActivity implements TextToSpeech.OnInitListener {
 
+    private static final String TTS_DEBUG_TAG = "TTS_DEBUG";
     private ActivityStoryDetailBinding binding;
     private FirebaseFirestore db;
     private String currentStoryId;
@@ -54,7 +64,11 @@ public class StoryDetailActivity extends AppCompatActivity {
     private Translator englishVietnameseTranslator;
     private PopupWindow translationPopupWindow;
 
-    // Pattern để tìm thẻ IMAGE_URL, không phân biệt chữ hoa thường và cho phép khoảng trắng
+    private TextToSpeech textToSpeech;
+    private boolean isTtsInitialized = false;
+    private boolean isSpeaking = false;
+    private final String UTTERANCE_ID = "KidsStoryUtteranceId";
+
     private static final Pattern IMAGE_URL_TAG_PATTERN =
             Pattern.compile("\\[\\s*IMAGE_URL\\s*:\\s*([^\\]]+?)\\s*\\]", Pattern.CASE_INSENSITIVE);
 
@@ -66,20 +80,19 @@ public class StoryDetailActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         db = FirebaseFirestore.getInstance();
-        // Đảm bảo ID toolbarStoryDetail có trong XML của bạn
         setSupportActionBar(binding.toolbarStoryDetail);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowTitleEnabled(false);
         }
 
-        initializeTranslator();
+        initializeTranslator(); // Gọi hàm
 
         Intent intent = getIntent();
         if (intent != null && intent.hasExtra("SELECTED_STORY_ID")) {
             currentStoryId = intent.getStringExtra("SELECTED_STORY_ID");
             if (currentStoryId != null && !currentStoryId.isEmpty()) {
-                loadStoryDetails();
+                loadStoryDetails(); // Gọi hàm
             } else {
                 Toast.makeText(this, "Lỗi: Không nhận được ID truyện.", Toast.LENGTH_SHORT).show();
                 finish();
@@ -89,21 +102,134 @@ public class StoryDetailActivity extends AppCompatActivity {
             finish();
         }
 
-        // Đảm bảo ID các nút này có trong XML của bạn
         binding.buttonSwitchToEnglish.setOnClickListener(v -> {
+            stopSpeaking();
             isShowingEnglish = true;
-            renderStoryContent();
-            updateLanguageButtonUI();
+            renderStoryContent(); // Gọi hàm
+            updateLanguageButtonUI(); // Gọi hàm
         });
 
         binding.buttonSwitchToVietnamese.setOnClickListener(v -> {
+            stopSpeaking();
             isShowingEnglish = false;
-            renderStoryContent();
-            updateLanguageButtonUI();
+            renderStoryContent(); // Gọi hàm
+            updateLanguageButtonUI(); // Gọi hàm
         });
-        updateLanguageButtonUI();
+        updateLanguageButtonUI(); // Gọi hàm
+
+        Log.d(TTS_DEBUG_TAG, "Initializing TTS...");
+        textToSpeech = new TextToSpeech(this, this);
+
+        binding.fabSpeakStory.setOnClickListener(v -> {
+            Log.d(TTS_DEBUG_TAG, "FAB Speak button clicked. isSpeaking = " + isSpeaking);
+            if (isSpeaking) {
+                stopSpeaking();
+            } else {
+                speakOut();
+            }
+        });
     }
 
+    @Override
+    public void onInit(int status) {
+        Log.d(TTS_DEBUG_TAG, "onInit called with status: " + status);
+        if (status == TextToSpeech.SUCCESS) {
+            isTtsInitialized = true;
+            Log.d(TTS_DEBUG_TAG, "TTS Initialization successful.");
+            int result = textToSpeech.setLanguage(Locale.US);
+            if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                Log.e(TTS_DEBUG_TAG, "Default language (US English) is not supported!");
+            }
+
+            textToSpeech.setOnUtteranceProgressListener(new UtteranceProgressListener() {
+                @Override
+                public void onStart(String utteranceId) {
+                    runOnUiThread(() -> {
+                        isSpeaking = true;
+                        binding.fabSpeakStory.setImageResource(R.drawable.ic_stop_speaking);
+                    });
+                }
+                @Override
+                public void onDone(String utteranceId) {
+                    runOnUiThread(() -> {
+                        isSpeaking = false;
+                        binding.fabSpeakStory.setImageResource(R.drawable.ic_speaker_on);
+                    });
+                }
+                @Override
+                public void onError(String utteranceId) {
+                    runOnUiThread(() -> {
+                        isSpeaking = false;
+                        binding.fabSpeakStory.setImageResource(R.drawable.ic_speaker_on);
+                        Toast.makeText(StoryDetailActivity.this, "Lỗi khi đọc truyện.", Toast.LENGTH_SHORT).show();
+                    });
+                }
+            });
+
+        } else {
+            Log.e(TTS_DEBUG_TAG, "TTS Initialization Failed! Status code: " + status);
+            isTtsInitialized = false;
+            binding.fabSpeakStory.setEnabled(false);
+            Toast.makeText(this, "Không thể khởi tạo chức năng đọc.", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private void speakOut() {
+        Log.d(TTS_DEBUG_TAG, "speakOut() called.");
+        AudioManager am = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+        int streamVolume = am.getStreamVolume(AudioManager.STREAM_MUSIC);
+        if (streamVolume == 0) {
+            Log.w(TTS_DEBUG_TAG, "Media volume is 0. Informing user.");
+            Toast.makeText(this, "Âm lượng Media đang tắt, hãy tăng âm lượng để nghe.", Toast.LENGTH_SHORT).show();
+        }
+
+        if (!isTtsInitialized || currentStoryObject == null) {
+            Toast.makeText(this, "Chức năng đọc chưa sẵn sàng.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        String titleToRead = isShowingEnglish ? currentStoryObject.getTitle_en() : currentStoryObject.getTitle_vi();
+        String contentToRead = isShowingEnglish ? currentStoryObject.getContent_en() : currentStoryObject.getContent_vi();
+        Locale languageToSet = isShowingEnglish ? Locale.US : new Locale("vi", "VN");
+
+        String textToRead = (titleToRead != null ? titleToRead : "") + ". " + (contentToRead != null ? contentToRead : "");
+        if (textToRead.trim().equals(".")) {
+            Toast.makeText(this, "Không có nội dung để đọc.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        textToRead = textToRead.replaceAll("\\[\\s*IMAGE_URL\\s*:[^\\]]+?\\]", "");
+        Log.d(TTS_DEBUG_TAG, "Cleaned text to read: \"" + textToRead + "\"");
+
+        int result = textToSpeech.setLanguage(languageToSet);
+        if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+            Toast.makeText(this, "Giọng đọc " + languageToSet.getDisplayLanguage() + " chưa được cài đặt trên điện thoại này.", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        textToSpeech.speak(textToRead, TextToSpeech.QUEUE_FLUSH, null, UTTERANCE_ID);
+    }
+
+    private void stopSpeaking() {
+        Log.d(TTS_DEBUG_TAG, "stopSpeaking() called.");
+        if (textToSpeech != null && textToSpeech.isSpeaking()) {
+            textToSpeech.stop();
+        }
+        isSpeaking = false;
+        binding.fabSpeakStory.setImageResource(R.drawable.ic_speaker_on);
+    }
+
+    @Override
+    protected void onDestroy() {
+        Log.d(TTS_DEBUG_TAG, "onDestroy() called. Shutting down TTS.");
+        if (textToSpeech != null) {
+            textToSpeech.stop();
+            textToSpeech.shutdown();
+        }
+        super.onDestroy();
+    }
+
+    // Định nghĩa lại các hàm bị thiếu
     private void initializeTranslator() {
         TranslatorOptions options =
                 new TranslatorOptions.Builder()
@@ -129,15 +255,12 @@ public class StoryDetailActivity extends AppCompatActivity {
                         currentStoryObject.setStoryId(document.getId());
                         populateInitialUI();
                     } else {
-                        Log.e("StoryDetailActivity", "Failed to convert document to Story object.");
                         Toast.makeText(StoryDetailActivity.this, "Lỗi: Dữ liệu truyện không hợp lệ.", Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    Log.e("StoryDetailActivity", "No such document with ID: " + currentStoryId);
                     Toast.makeText(StoryDetailActivity.this, "Lỗi: Không tìm thấy truyện.", Toast.LENGTH_SHORT).show();
                 }
             } else {
-                Log.e("StoryDetailActivity", "Error getting story details: ", task.getException());
                 Toast.makeText(StoryDetailActivity.this, "Lỗi khi tải chi tiết truyện.", Toast.LENGTH_SHORT).show();
             }
         });
@@ -145,13 +268,15 @@ public class StoryDetailActivity extends AppCompatActivity {
 
     private void populateInitialUI() {
         if (currentStoryObject == null) return;
-        // Đảm bảo ID imageViewStoryDetailCover có trong XML
+
+        setDefaultContentBackground();
+
         if (currentStoryObject.getCoverImageUrl() != null && !currentStoryObject.getCoverImageUrl().isEmpty()) {
             binding.imageViewStoryDetailCover.setVisibility(View.VISIBLE);
             Glide.with(this)
                     .load(currentStoryObject.getCoverImageUrl())
-                    .placeholder(R.drawable.anh1) // Hoặc ic_book_placeholder
-                    .error(R.drawable.anh1)     // Hoặc ic_book_placeholder
+                    .placeholder(R.drawable.anh1)
+                    .error(R.drawable.anh1)
                     .into(binding.imageViewStoryDetailCover);
         } else {
             binding.imageViewStoryDetailCover.setVisibility(View.GONE);
@@ -159,73 +284,42 @@ public class StoryDetailActivity extends AppCompatActivity {
         renderStoryContent();
     }
 
-    // Hàm renderStoryContent đã được cập nhật để làm việc với linearLayoutStoryContentHolder
+    private void setDefaultContentBackground() {
+        binding.linearLayoutStoryContentHolder.setBackgroundColor(Color.WHITE);
+        if (binding.linearLayoutStoryContentHolder.getParent() instanceof View) {
+            ((View)binding.linearLayoutStoryContentHolder.getParent()).setBackgroundColor(Color.WHITE);
+        }
+    }
+
     private void renderStoryContent() {
-        if (currentStoryObject == null) {
-            Log.e("RenderContent", "currentStoryObject is null. Cannot render content.");
-            return;
-        }
-
-        String titleToShow;
-        String rawContent;
-
-        if (isShowingEnglish) {
-            titleToShow = (currentStoryObject.getTitle_en() != null && !currentStoryObject.getTitle_en().isEmpty())
-                    ? currentStoryObject.getTitle_en()
-                    : (currentStoryObject.getTitle_vi() != null && !currentStoryObject.getTitle_vi().isEmpty() ? currentStoryObject.getTitle_vi() : "Story Title");
-            rawContent = currentStoryObject.getContent_en();
-            Log.d("StoryDetailActivity", "Rendering English content and title.");
-        } else {
-            titleToShow = (currentStoryObject.getTitle_vi() != null && !currentStoryObject.getTitle_vi().isEmpty())
-                    ? currentStoryObject.getTitle_vi()
-                    : (currentStoryObject.getTitle_en() != null && !currentStoryObject.getTitle_en().isEmpty() ? currentStoryObject.getTitle_en() : "Tiêu Đề");
-            rawContent = currentStoryObject.getContent_vi();
-            Log.d("StoryDetailActivity", "Rendering Vietnamese content and title.");
-        }
-        // Đảm bảo ID textViewStoryDetailTitle có trong XML
+        if (currentStoryObject == null) { return; }
+        String titleToShow = isShowingEnglish ? currentStoryObject.getTitle_en() : currentStoryObject.getTitle_vi();
         binding.textViewStoryDetailTitle.setText(titleToShow);
-
-        // Xóa các view cũ trong linearLayoutStoryContentHolder trước khi thêm mới
-        // Đảm bảo ID linearLayoutStoryContentHolder có trong XML
+        String rawContent = isShowingEnglish ? currentStoryObject.getContent_en() : currentStoryObject.getContent_vi();
         binding.linearLayoutStoryContentHolder.removeAllViews();
-
         if (rawContent == null || rawContent.isEmpty()) {
-            TextView emptyTextView = createTextView(isShowingEnglish ? "Content not available in English." : "Nội dung không có sẵn bằng Tiếng Việt.");
+            TextView emptyTextView = createTextView(isShowingEnglish ? "Content not available." : "Nội dung không có sẵn.");
             binding.linearLayoutStoryContentHolder.addView(emptyTextView);
-            Log.d("RenderContent", "Raw content is empty or null.");
             return;
         }
-
-        Log.d("RenderContent", "Raw content to parse: \"" + rawContent + "\"");
-
         Matcher matcher = IMAGE_URL_TAG_PATTERN.matcher(rawContent);
         int lastProcessedEnd = 0;
-
         while (matcher.find()) {
             if (matcher.start() > lastProcessedEnd) {
-                String textSegment = rawContent.substring(lastProcessedEnd, matcher.start());
-                Log.d("RenderContent", "Text segment before image: \"" + textSegment + "\"");
-                addTextSegmentToLayout(textSegment);
+                addTextSegmentToLayout(rawContent.substring(lastProcessedEnd, matcher.start()));
             }
             String imageUrl = matcher.group(1).trim();
-            Log.d("RenderContent", "Found image URL: \"" + imageUrl + "\" from tag: \"" + matcher.group(0) + "\"");
-            if (!imageUrl.isEmpty()) {
-                addImageToLayout(imageUrl);
-            }
+            if (!imageUrl.isEmpty()) { addImageToLayout(imageUrl); }
             lastProcessedEnd = matcher.end();
         }
-
         if (lastProcessedEnd < rawContent.length()) {
-            String remainingTextSegment = rawContent.substring(lastProcessedEnd);
-            Log.d("RenderContent", "Remaining text segment after last image: \"" + remainingTextSegment + "\"");
-            addTextSegmentToLayout(remainingTextSegment);
-        } else if (lastProcessedEnd == 0 && !rawContent.isEmpty()) { // Không có thẻ ảnh nào
-            Log.d("RenderContent", "No image tags found. Displaying all as text.");
+            addTextSegmentToLayout(rawContent.substring(lastProcessedEnd));
+        } else if (lastProcessedEnd == 0 && !rawContent.isEmpty()) {
             addTextSegmentToLayout(rawContent);
         }
     }
 
-    private TextView createTextView(String text) { // Tham số text không còn dùng ở đây
+    private TextView createTextView(String text) {
         TextView textView = new TextView(this);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
@@ -233,19 +327,16 @@ public class StoryDetailActivity extends AppCompatActivity {
         );
         params.setMargins(0, 0, 0, (int) (8 * getResources().getDisplayMetrics().density));
         textView.setLayoutParams(params);
-        textView.setTextSize(18f);
-        textView.setTextColor(Color.parseColor("#333333"));
-        textView.setLineSpacing(6f, 1.0f);
+        textView.setTextSize(30f);
+        textView.setTextColor(Color.parseColor("#F29705"));
+        textView.setLineSpacing(8f, 1.1f);
+        textView.setText(text);
         return textView;
     }
 
     private void addTextSegmentToLayout(String textSegment) {
-        if (textSegment == null || textSegment.trim().isEmpty()) {
-            Log.d("AddText", "Text segment is empty or null, skipping.");
-            return;
-        }
-        Log.d("AddText", "Processing text segment for display: \"" + textSegment.trim() + "\"");
-        TextView textView = createTextView(""); // Tạo TextView
+        if (textSegment == null || textSegment.trim().isEmpty()) { return; }
+        TextView textView = createTextView("");
         if (isShowingEnglish) {
             setupClickableTextForSegment(textView, textSegment.trim());
         } else {
@@ -256,7 +347,6 @@ public class StoryDetailActivity extends AppCompatActivity {
     }
 
     private void addImageToLayout(String imageUrl) {
-        Log.d("AddImage", "Attempting to add image from URL: " + imageUrl);
         ImageView imageView = new ImageView(this);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
@@ -268,7 +358,7 @@ public class StoryDetailActivity extends AppCompatActivity {
         imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
         Glide.with(this)
                 .load(imageUrl)
-                .placeholder(R.drawable.anh1) // Bạn cần tạo drawable này
+                .placeholder(R.drawable.anh1)
                 .error(R.drawable.anh1)
                 .into(imageView);
         binding.linearLayoutStoryContentHolder.addView(imageView);
@@ -289,7 +379,6 @@ public class StoryDetailActivity extends AppCompatActivity {
             }
             int currentWordStart = englishSegment.indexOf(word, startIndexOfWordInOriginal);
             if (currentWordStart == -1) {
-                Log.w("ClickableSpan", "Word not found in segment: \"" + word + "\" within \"" + englishSegment + "\" starting from " + startIndexOfWordInOriginal);
                 startIndexOfWordInOriginal += word.length();
                 continue;
             }
@@ -311,7 +400,7 @@ public class StoryDetailActivity extends AppCompatActivity {
             try {
                 spannableString.setSpan(clickableSpan, currentWordStart, currentWordEnd, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             } catch (IndexOutOfBoundsException e) {
-                Log.e("ClickableSpan", "Error setting span for word: '" + word + "' at [" + currentWordStart + "," + currentWordEnd + "] in segment: '" + englishSegment + "'", e);
+                Log.e("ClickableSpan", "Error setting span: " + e.getMessage());
             }
             startIndexOfWordInOriginal = currentWordEnd;
         }
@@ -332,18 +421,13 @@ public class StoryDetailActivity extends AppCompatActivity {
     private void showTranslationPopup(TextView anchorView, int startOffset, int endOffset, String translatedText, String originalWord) {
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View popupView = inflater.inflate(R.layout.popup_translation, null);
-
-        // Đảm bảo ID này khớp với ID trong popup_translation.xml
-        TextView tvTranslated = popupView.findViewById(R.id.textViewTranslatedWord); // Hoặc textViewTranslatedWordPopup tùy bạn đặt
+        TextView tvTranslated = popupView.findViewById(R.id.textViewTranslatedWord);
         if (tvTranslated == null) {
-            Log.e("PopupError", "TextView for translation not found in popup_translation.xml");
             Toast.makeText(this, "Lỗi giao diện popup dịch.", Toast.LENGTH_SHORT).show();
             Toast.makeText(this, originalWord + ": " + translatedText, Toast.LENGTH_LONG).show();
             return;
         }
-        String displayText = originalWord + ": " + translatedText;
-        tvTranslated.setText(displayText);
-
+        tvTranslated.setText(translatedText);
         if (translationPopupWindow != null && translationPopupWindow.isShowing()) {
             translationPopupWindow.dismiss();
         }
@@ -352,7 +436,6 @@ public class StoryDetailActivity extends AppCompatActivity {
         translationPopupWindow.setFocusable(true);
         translationPopupWindow.setOutsideTouchable(true);
         translationPopupWindow.setBackgroundDrawable(new BitmapDrawable());
-
         android.text.Layout layout = anchorView.getLayout();
         if (layout == null) {
             translationPopupWindow.showAtLocation(anchorView, Gravity.BOTTOM, 0, anchorView.getHeight());
@@ -376,7 +459,6 @@ public class StoryDetailActivity extends AppCompatActivity {
         try {
             translationPopupWindow.showAtLocation(anchorView, Gravity.NO_GRAVITY, popupX, popupY);
         } catch (Exception e) {
-            Log.e("PopupWindowError", "Error showing popup: " + e.getMessage());
             Toast.makeText(this, "Dịch '" + originalWord + "': " + translatedText, Toast.LENGTH_LONG).show();
         }
     }

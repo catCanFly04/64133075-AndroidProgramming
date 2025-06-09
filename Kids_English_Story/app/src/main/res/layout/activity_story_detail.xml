@@ -1,120 +1,127 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/white"> <androidx.appcompat.widget.Toolbar
-    android:id="@+id/toolbarStoryDetail"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:minHeight="?attr/actionBarSize"
-    android:background="@color/cam_nhat"
-    app:navigationIcon="@drawable/ic_arrow_back"
-    app:title="" >
-    <!--
-    <TextView
-        android:id="@+id/textViewToolbarTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Tên Truyện"
-        android:textColor="@color/cam_dam_text"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:maxLines="1"
-        android:ellipsize="end"/>
-    -->
-</androidx.appcompat.widget.Toolbar>
+    tools:context=".StoryDetailActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:paddingVertical="10dp"
-        android:background="@color/cam_nhat">
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/buttonSwitchToEnglish"
-            style="@style/Widget.Material3.Button.TextButton.Icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:text="Tiếng Anh"
-            android:textSize="20sp"
-            android:textColor="@color/cam"
-            app:icon="@drawable/uk"
-            app:iconSize="30dp"
-            app:iconTint="@null"
-            app:iconGravity="textStart"
-            app:iconPadding="8dp"
-            app:rippleColor="@color/cam_nhat"
-            app:strokeColor="@color/cam_nhat"
-            app:strokeWidth="1dp"
-            app:backgroundTint="@color/cam_nhat"
-            app:cornerRadius="18dp"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/white">
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/buttonSwitchToVietnamese"
-            style="@style/Widget.Material3.Button.TextButton.Icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:text="Tiếng Việt"
-            android:textColor="@color/cam"
-            android:textSize="20sp"
-            app:backgroundTint="@color/cam_nhat"
-            app:cornerRadius="18dp"
-            app:icon="@drawable/vietnam_2151437"
-            app:iconSize="40dp"
-            app:iconGravity="textStart"
-            app:iconPadding="8dp"
-            app:iconTint="@null"
-            app:rippleColor="@color/cam_nhat"
-            app:strokeColor="@color/cam_nhat"
-            app:strokeWidth="1dp" />
-    </LinearLayout>
-
-    <androidx.core.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:fillViewport="true">
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbarStoryDetail"
+            android:layout_width="match_parent"
+            android:layout_height="53dp"
+            android:background="@color/cam_nhat"
+            android:minHeight="?attr/actionBarSize"
+            app:navigationIcon="@drawable/ic_arrow_back"
+            app:title=""/>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp">
-            <TextView
-                android:id="@+id/textViewStoryDetailTitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-condensed-medium"
-                android:gravity="center_horizontal"
-                android:paddingBottom="12dp"
-                android:textColor="@color/cam"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                tools:text="Tên Truyện Thật Là Hay Và Hấp Dẫn" />
+            android:layout_height="67dp"
+            android:background="@color/cam_nhat"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingVertical="10dp">
 
-            <ImageView
-                android:id="@+id/imageViewStoryDetailCover"
-                android:layout_width="match_parent"
-                android:layout_height="220dp"
-                android:scaleType="centerCrop"
-                android:visibility="gone"
-                app:shapeAppearanceOverlay="@style/ShapeAppearance.Material3.Corner.Large"
-                tools:srcCompat="@drawable/anh1"
-                android:layout_marginBottom="16dp"/>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/buttonSwitchToEnglish"
+                style="@style/Widget.Material3.Button.TextButton.Icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:text="Tiếng Anh"
+                android:textColor="@color/cam"
+                android:textSize="20sp"
+                app:backgroundTint="@color/cam_nhat"
+                app:cornerRadius="18dp"
+                app:icon="@drawable/uk"
+                app:iconGravity="textStart"
+                app:iconPadding="8dp"
+                app:iconSize="30dp"
+                app:iconTint="@null"
+                app:rippleColor="@color/cam_nhat"
+                app:strokeColor="@color/cam_nhat"
+                app:strokeWidth="1dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/buttonSwitchToVietnamese"
+                style="@style/Widget.Material3.Button.TextButton.Icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="Tiếng Việt"
+                android:textColor="@color/cam"
+                android:textSize="20sp"
+                app:backgroundTint="@color/cam_nhat"
+                app:cornerRadius="18dp"
+                app:icon="@drawable/vietnam_2151437"
+                app:iconGravity="textStart"
+                app:iconPadding="8dp"
+                app:iconSize="40dp"
+                app:iconTint="@null"
+                app:rippleColor="@color/cam_nhat"
+                app:strokeColor="@color/cam_nhat"
+                app:strokeWidth="1dp" />
+        </LinearLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/nestedScrollViewStoryArea"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:fillViewport="true">
 
             <LinearLayout
-                android:id="@+id/linearLayoutStoryContentHolder"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"/>
-        </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
+                android:orientation="vertical"
+                android:padding="16dp">
+                <TextView
+                    android:id="@+id/textViewStoryDetailTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-condensed-medium"
+                    android:gravity="center_horizontal"
+                    android:paddingBottom="12dp"
+                    android:textColor="@color/cam"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    tools:text="Tên Truyện Thật Là Hay Và Hấp Dẫn" />
 
-</LinearLayout>
+                <ImageView
+                    android:id="@+id/imageViewStoryDetailCover"
+                    android:layout_width="match_parent"
+                    android:layout_height="220dp"
+                    android:scaleType="centerCrop"
+                    android:visibility="gone"
+                    tools:srcCompat="@drawable/anh1"
+                    android:layout_marginBottom="16dp"/>
+
+                <LinearLayout
+                    android:id="@+id/linearLayoutStoryContentHolder"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"/>
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+
+    </LinearLayout>
+
+    <!-- NÚT BẤM NGHE TRUYỆN ĐƯỢC THÊM VÀO ĐÂY -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_speak_story"
+        android:layout_width="77dp"
+        android:layout_height="75dp"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        android:contentDescription="Nghe đọc truyện"
+        android:src="@drawable/ic_speaker_on"
+        app:tint="@color/cam" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
