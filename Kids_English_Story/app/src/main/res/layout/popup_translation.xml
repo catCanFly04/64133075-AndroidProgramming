@@ -9,7 +9,7 @@
     android:id="@+id/textViewTranslatedWord"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:textSize="16sp"
+    android:textSize="20sp"
     android:textColor="@android:color/black"
     android:text="Nghĩa tiếng Việt" />
 

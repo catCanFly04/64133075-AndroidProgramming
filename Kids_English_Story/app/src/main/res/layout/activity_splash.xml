@@ -20,11 +20,11 @@
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="415dp"
-        android:layout_height="195dp"
+        android:layout_width="419dp"
+        android:layout_height="246dp"
         android:layout_marginTop="316dp"
-        android:fontFamily="@font/adlam_display"
-        android:text="WELLCOME TO YOUR LITTLE BOOK"
+        android:fontFamily="sans-serif-black"
+        android:text="WELCOME TO YOUR LITTLE BOOK"
         android:textColor="@color/cam"
         android:textSize="50sp"
         app:layout_constraintEnd_toEndOf="parent"

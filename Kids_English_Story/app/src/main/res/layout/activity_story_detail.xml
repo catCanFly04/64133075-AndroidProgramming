@@ -116,12 +116,14 @@
     <!-- NÚT BẤM NGHE TRUYỆN ĐƯỢC THÊM VÀO ĐÂY -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_speak_story"
-        android:layout_width="77dp"
-        android:layout_height="75dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
         android:contentDescription="Nghe đọc truyện"
         android:src="@drawable/ic_speaker_on"
+        app:backgroundTint="@color/cam_nhat"
+        app:maxImageSize="40dp"
         app:tint="@color/cam" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -89,7 +89,6 @@ public class StoryListActivity extends AppCompatActivity {
     }
 
     private void loadStoriesFromFirestore() {
-        // ... (code hàm loadStoriesFromFirestore của bạn giữ nguyên) ...
         if (currentThemeId == null) {
             Log.e("StoryListActivity", "Theme ID is null in loadStoriesFromFirestore. Cannot query.");
             Toast.makeText(this, "Lỗi: Không có thông tin chủ đề để tải truyện.", Toast.LENGTH_SHORT).show();
@@ -104,7 +103,6 @@ public class StoryListActivity extends AppCompatActivity {
             query = query.whereEqualTo("age_group", currentAgeGroup);
         }
         query = query.orderBy("title_en", Query.Direction.ASCENDING);
-
 
         query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -142,7 +140,6 @@ public class StoryListActivity extends AppCompatActivity {
     }
 
     private String formatThemeIdForDisplay(String themeId) {
-        // ... (code hàm formatThemeIdForDisplay của bạn giữ nguyên) ...
         if (themeId == null) return "Không rõ";
         switch (themeId) {
             case "FAMILY": return "Gia Đình";
