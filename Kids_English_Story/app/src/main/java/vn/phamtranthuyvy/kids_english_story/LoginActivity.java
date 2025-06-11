@@ -1,5 +1,4 @@
-package vn.phamtranthuyvy.kids_english_story; // <-- THAY BẰNG PACKAGE CỦA BẠN
-
+package vn.phamtranthuyvy.kids_english_story;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -15,9 +14,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-
-// Đảm bảo tên binding đúng với tên layout activity_login.xml
-import vn.phamtranthuyvy.kids_english_story.databinding.ActivityLoginBinding; // <-- THAY BẰNG PACKAGE CỦA BẠN
+import vn.phamtranthuyvy.kids_english_story.databinding.ActivityLoginBinding;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -45,8 +42,6 @@ public class LoginActivity extends AppCompatActivity {
         binding.tvRegisterPrompt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Tạm thời hiển thị Toast, sau này sẽ chuyển sang RegisterActivity
-                //Toast.makeText(LoginActivity.this, "Chức năng Đăng ký sẽ được thêm sau!", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
                 startActivity(intent);
             }

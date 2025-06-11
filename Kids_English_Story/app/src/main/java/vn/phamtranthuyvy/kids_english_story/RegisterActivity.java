@@ -18,8 +18,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-// Đảm bảo tên binding đúng với layout activity_register.xml
-import vn.phamtranthuyvy.kids_english_story.databinding.ActivityRegisterBinding; // <-- THAY BẰNG PACKAGE CỦA BẠN
+import vn.phamtranthuyvy.kids_english_story.databinding.ActivityRegisterBinding;
 
 public class RegisterActivity extends AppCompatActivity {
 

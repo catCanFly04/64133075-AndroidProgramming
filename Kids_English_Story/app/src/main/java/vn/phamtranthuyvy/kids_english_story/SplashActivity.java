@@ -22,7 +22,7 @@ public class SplashActivity extends AppCompatActivity {
         new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
             @Override
             public void run() {
-                // *** THAY ĐỔI QUAN TRỌNG: Chuyển sang LoginActivity ***
+
                 Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
                 startActivity(intent);
                 finish(); // Kết thúc SplashActivity
